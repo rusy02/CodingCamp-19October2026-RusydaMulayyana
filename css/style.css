@@ -1,0 +1,640 @@
+/* =============================================
+   Life Dashboard — style.css
+   Futuristic 3D Neon Glass UI
+   Palette: Purple · Blue · Pink · Orange
+   Font: Plus Jakarta Sans / Poppins
+   ============================================= */
+
+/* ---------- CSS VARIABLES ---------- */
+:root {
+  --purple:  #a855f7;
+  --blue:    #3b82f6;
+  --pink:    #ec4899;
+  --orange:  #f97316;
+  --cyan:    #22d3ee;
+
+  /* Dark mode base (default) */
+  --bg-base:        #0d0d1a;
+  --bg-mid:         #12122b;
+  --glass-bg:       rgba(255,255,255,0.04);
+  --glass-border:   rgba(255,255,255,0.10);
+  --glass-shadow:   0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06);
+  --text-primary:   #f0f0ff;
+  --text-muted:     rgba(180,180,220,0.6);
+  --input-bg:       rgba(255,255,255,0.06);
+  --input-border:   rgba(255,255,255,0.12);
+  --sort-inactive:  rgba(255,255,255,0.06);
+  --sort-text:      rgba(180,180,220,0.7);
+  --btn-ghost-bg:   rgba(255,255,255,0.07);
+  --btn-ghost-border: rgba(255,255,255,0.14);
+  --task-bg:        rgba(255,255,255,0.04);
+  --task-border:    rgba(255,255,255,0.08);
+  --task-done-bg:   rgba(74,222,128,0.06);
+  --task-done-border: rgba(74,222,128,0.25);
+  --modal-bg:       rgba(15,12,35,0.96);
+}
+
+/* Light mode overrides */
+html.light {
+  --bg-base:          #ede9ff;
+  --bg-mid:           #e0d9ff;
+  --glass-bg:         rgba(255,255,255,0.82);
+  --glass-border:     rgba(124,58,237,0.18);
+  --glass-shadow:     0 8px 32px rgba(100,60,200,0.14), 0 0 0 1px rgba(124,58,237,0.1);
+  --text-primary:     #1e0a40;
+  --text-muted:       #5b4080;
+  --input-bg:         rgba(255,255,255,0.92);
+  --input-border:     rgba(124,58,237,0.25);
+  --sort-inactive:    rgba(124,58,237,0.09);
+  --sort-text:        #4c1d95;
+  --btn-ghost-bg:     rgba(124,58,237,0.09);
+  --btn-ghost-border: rgba(124,58,237,0.25);
+  --task-bg:          rgba(255,255,255,0.85);
+  --task-border:      rgba(124,58,237,0.14);
+  --task-done-bg:     rgba(134,239,172,0.2);
+  --task-done-border: rgba(74,222,128,0.4);
+  --modal-bg:         rgba(245,240,255,0.98);
+}
+
+/* ---------- BODY BACKGROUND ---------- */
+.body-bg {
+  background: var(--bg-base);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% -10%, rgba(168,85,247,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 10%, rgba(59,130,246,0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 110%, rgba(236,72,153,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 80% 80%, rgba(249,115,22,0.10) 0%, transparent 55%);
+  color: var(--text-primary);
+}
+
+html.light .body-bg {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% -10%, rgba(139,92,246,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 10%, rgba(59,130,246,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 110%, rgba(236,72,153,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 80% 80%, rgba(249,115,22,0.07) 0%, transparent 55%);
+}
+
+/* Force body text colour for light mode — prevents Tailwind text-gray-100 override */
+html.light body {
+  color: var(--text-primary);
+}
+
+/* ---------- HEADER ---------- */
+.header-glass {
+  background: rgba(13,13,26,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 1px 0 0 rgba(255,255,255,0.04);
+}
+
+html.light .header-glass {
+  background: rgba(245,242,255,0.92);
+  border-bottom-color: rgba(124,58,237,0.18);
+  box-shadow: 0 1px 12px rgba(100,60,200,0.08);
+}
+
+/* Header text in light mode must be dark */
+html.light .header-glass span,
+html.light .header-glass p {
+  color: #1e0a40;
+}
+
+/* ---------- REVOU LOGO ---------- */
+.revou-logo-wrap {
+  filter: drop-shadow(0 0 8px rgba(168,85,247,0.6));
+}
+
+/* ---------- NEON TEXT ---------- */
+.neon-text {
+  background: linear-gradient(135deg, #ffffff 0%, #e0d0ff 40%, #f9a8d4 80%, #fed7aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html.light .neon-text {
+  background: linear-gradient(135deg, #7c3aed 0%, #2563eb 50%, #db2777 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.neon-text-sm {
+  background: linear-gradient(90deg, #c4b5fd 0%, #93c5fd 50%, #f9a8d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html.light .neon-text-sm {
+  background: linear-gradient(90deg, #7c3aed 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---------- CARDS ---------- */
+.card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Greeting card — rich gradient */
+.greeting-card {
+  background: linear-gradient(135deg, rgba(88,28,135,0.75) 0%, rgba(30,58,138,0.65) 50%, rgba(157,23,77,0.55) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow:
+    var(--glass-shadow),
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 0 60px rgba(168,85,247,0.12);
+}
+
+/* Light mode greeting: keep rich gradient so text stays white and readable */
+html.light .greeting-card {
+  background: linear-gradient(135deg, rgba(109,40,217,0.90) 0%, rgba(29,78,216,0.85) 50%, rgba(190,24,93,0.80) 100%);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 8px 32px rgba(100,60,200,0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* Greeting card always renders white text — the gradient is dark enough */
+.greeting-card,
+.greeting-card * {
+  --tw-text-opacity: 1;
+}
+
+.greeting-card #greeting,
+.greeting-card #clock,
+.greeting-card #dateDisplay {
+  color: #ffffff !important;
+  -webkit-text-fill-color: unset;
+}
+
+/* Override neon-text gradient inside greeting card so it stays white/legible */
+.greeting-card #greeting {
+  background: linear-gradient(135deg, #ffffff 0%, #e9d5ff 50%, #fbcfe8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.greeting-card #dateDisplay {
+  color: rgba(255,255,255,0.75) !important;
+  -webkit-text-fill-color: rgba(255,255,255,0.75) !important;
+}
+
+/* Decorative orbs */
+.orb {
+  border-radius: 50%;
+  filter: blur(32px);
+}
+
+.orb-purple { background: radial-gradient(circle, #a855f7 0%, transparent 70%); }
+.orb-pink   { background: radial-gradient(circle, #ec4899 0%, transparent 70%); }
+.orb-blue   { background: radial-gradient(circle, #3b82f6 0%, transparent 70%); }
+
+/* ---------- CLOCK DISPLAY ---------- */
+.clock-display {
+  font-size: 3rem;
+  line-height: 1.1;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(168,85,247,0.6), 0 0 40px rgba(59,130,246,0.3);
+}
+
+/* ---------- ICON BADGES ---------- */
+.icon-badge {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-badge-blue {
+  background: linear-gradient(135deg, rgba(59,130,246,0.25), rgba(168,85,247,0.25));
+  border: 1px solid rgba(59,130,246,0.35);
+  color: #93c5fd;
+  box-shadow: 0 0 10px rgba(59,130,246,0.15);
+}
+
+.icon-badge-pink {
+  background: linear-gradient(135deg, rgba(236,72,153,0.25), rgba(249,115,22,0.2));
+  border: 1px solid rgba(236,72,153,0.35);
+  color: #f9a8d4;
+  box-shadow: 0 0 10px rgba(236,72,153,0.15);
+}
+
+.icon-badge-orange {
+  background: linear-gradient(135deg, rgba(249,115,22,0.25), rgba(236,72,153,0.2));
+  border: 1px solid rgba(249,115,22,0.35);
+  color: #fdba74;
+  box-shadow: 0 0 10px rgba(249,115,22,0.15);
+}
+
+/* Light mode: stronger icon badge colours for contrast against light bg */
+html.light .icon-badge-blue {
+  background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(124,58,237,0.18));
+  border-color: rgba(59,130,246,0.45);
+  color: #1d4ed8;
+  box-shadow: none;
+}
+html.light .icon-badge-pink {
+  background: linear-gradient(135deg, rgba(236,72,153,0.15), rgba(249,115,22,0.12));
+  border-color: rgba(219,39,119,0.45);
+  color: #be185d;
+  box-shadow: none;
+}
+html.light .icon-badge-orange {
+  background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(236,72,153,0.12));
+  border-color: rgba(234,88,12,0.45);
+  color: #c2410c;
+  box-shadow: none;
+}
+
+/* ---------- INPUTS ---------- */
+.input-glass {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-primary);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-glass:focus {
+  border-color: rgba(168,85,247,0.6);
+  box-shadow: 0 0 0 3px rgba(168,85,247,0.12), 0 0 12px rgba(168,85,247,0.1);
+}
+
+.input-glass::placeholder { color: var(--text-muted); }
+
+/* Light mode: ensure input text is always dark */
+html.light .input-glass {
+  color: #1e0a40;
+}
+html.light .input-glass::placeholder {
+  color: #8b6aac;
+}
+
+/* ---------- BUTTONS ---------- */
+
+/* Primary — neon gradient */
+.btn-primary {
+  background: linear-gradient(135deg, #7c3aed 0%, #2563eb 60%, #7c3aed 100%);
+  background-size: 200% auto;
+  color: #ffffff;
+  border: 1px solid rgba(168,85,247,0.5);
+  box-shadow: 0 0 16px rgba(124,58,237,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+  transition: background-position 0.4s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-position: right center;
+  box-shadow: 0 0 24px rgba(124,58,237,0.55), inset 0 1px 0 rgba(255,255,255,0.2);
+  transform: translateY(-1px);
+}
+
+.btn-primary-sm {
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  color: #fff;
+  border: 1px solid rgba(168,85,247,0.4);
+  transition: opacity 0.2s;
+}
+.btn-primary-sm:hover { opacity: 0.85; }
+
+/* Ghost button */
+.btn-ghost {
+  background: var(--btn-ghost-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--btn-ghost-border);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-1px);
+}
+
+html.light .btn-ghost {
+  color: #1e0a40;
+}
+html.light .btn-ghost:hover:not(:disabled) {
+  background: rgba(124,58,237,0.12);
+}
+
+.btn-ghost-sm {
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: background 0.2s;
+}
+.btn-ghost-sm:hover { background: rgba(255,255,255,0.2); }
+
+/* Amber (pause) */
+.btn-amber {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: #fff;
+  border: 1px solid rgba(249,115,22,0.5);
+  box-shadow: 0 0 14px rgba(249,115,22,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+.btn-amber:hover:not(:disabled) {
+  box-shadow: 0 0 22px rgba(249,115,22,0.5);
+  transform: translateY(-1px);
+}
+
+/* Disabled state */
+button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ---------- THEME TOGGLE SWITCH ---------- */
+.theme-toggle-track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(168,85,247,0.4), rgba(59,130,246,0.4));
+  border: 1px solid rgba(168,85,247,0.45);
+  box-shadow: 0 0 10px rgba(168,85,247,0.25), inset 0 1px 0 rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: background 0.3s;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+html.light .theme-toggle-track {
+  background: linear-gradient(90deg, rgba(249,115,22,0.35), rgba(234,179,8,0.3));
+  border-color: rgba(249,115,22,0.35);
+  box-shadow: 0 0 10px rgba(249,115,22,0.2);
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(168,85,247,0.5);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark mode = thumb to the right */
+html.dark .theme-toggle-thumb {
+  transform: translateX(20px);
+  box-shadow: 0 0 8px rgba(168,85,247,0.8);
+}
+
+html.light .theme-toggle-thumb {
+  transform: translateX(0px);
+  background: #f97316;
+  box-shadow: 0 0 8px rgba(249,115,22,0.6);
+}
+
+/* ---------- SORT BUTTONS ---------- */
+.sort-btn {
+  background: var(--sort-inactive);
+  color: var(--sort-text);
+  border: 1px solid var(--glass-border);
+  transition: all 0.2s;
+}
+.sort-btn:hover {
+  border-color: rgba(168,85,247,0.45);
+  color: var(--text-primary);
+}
+.sort-btn.active-sort {
+  background: linear-gradient(135deg, rgba(124,58,237,0.45), rgba(37,99,235,0.45));
+  color: #e0d0ff;
+  border-color: rgba(168,85,247,0.5);
+  box-shadow: 0 0 8px rgba(168,85,247,0.2);
+}
+
+html.light .sort-btn {
+  color: #4c1d95;
+}
+html.light .sort-btn:hover {
+  color: #1e0a40;
+  border-color: rgba(124,58,237,0.5);
+}
+html.light .sort-btn.active-sort {
+  background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(37,99,235,0.18));
+  color: #3b0764;
+  border-color: rgba(124,58,237,0.5);
+  box-shadow: none;
+}
+
+/* ---------- TASK ITEMS ---------- */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.task-item {
+  animation: slideIn 0.2s ease-out;
+  background: var(--task-bg);
+  border: 1px solid var(--task-border);
+  transition: background 0.2s, border-color 0.2s;
+}
+.task-item:hover {
+  background: rgba(168,85,247,0.06);
+  border-color: rgba(168,85,247,0.22);
+}
+.task-done {
+  background: var(--task-done-bg) !important;
+  border-color: var(--task-done-border) !important;
+}
+.task-done .task-text {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+/* Task text colour: inherit from CSS variable so light mode stays dark */
+.task-item .task-text {
+  color: var(--text-primary);
+}
+
+/* Task check circle - done state */
+.task-check-done {
+  background: linear-gradient(135deg, #4ade80, #22d3ee);
+  border-color: transparent !important;
+  box-shadow: 0 0 8px rgba(74,222,128,0.4);
+}
+
+/* Light mode: task action icons need dark enough colour */
+html.light .task-item .task-edit,
+html.light .task-item .task-delete {
+  color: #9ca3af;
+}
+html.light .task-item .task-edit:hover  { color: #1d4ed8; }
+html.light .task-item .task-delete:hover { color: #dc2626; }
+
+/* ---------- QUICK LINK ITEMS (vertical list) ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.link-row-item {
+  animation: fadeIn 0.2s ease-out;
+  background: var(--task-bg);
+  border: 1px solid var(--task-border);
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+.link-row-item:hover {
+  background: rgba(236,72,153,0.06);
+  border-color: rgba(236,72,153,0.25);
+  transform: translateX(2px);
+}
+
+/* Light mode: link row text must be dark */
+html.light .link-row-item .link-name-text {
+  color: #1e0a40;
+}
+html.light .link-row-item .link-arrow-icon {
+  color: #9ca3af;
+}
+
+/* Brand icon SVGs embedded as inline */
+.brand-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ---------- ICON UPLOADER (square 1:1) ---------- */
+.icon-upload-square {
+  background: var(--sort-inactive);
+  border: 1px dashed var(--glass-border);
+  color: var(--text-muted);
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  overflow: hidden;
+}
+.icon-upload-square:hover {
+  border-color: rgba(236,72,153,0.55);
+  color: #f9a8d4;
+  background: rgba(236,72,153,0.07);
+}
+html.light .icon-upload-square {
+  color: #5b4080;
+}
+html.light .icon-upload-square:hover {
+  border-color: rgba(190,24,93,0.5);
+  color: #9d174d;
+  background: rgba(236,72,153,0.07);
+}
+
+/* ---------- LINK ROW — open icon behaviour ----------
+   Default: open icon visible on right.
+   Hover: delete icon fades in, open icon shifts left to sit beside it.
+   We use a flex row with fixed order; the open icon has a slight
+   rightward translate at rest that snaps to 0 on hover.
+   --------------------------------------------------------- */
+.link-open-btn {
+  /* visible at rest, slightly right */
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s, background 0.2s;
+}
+
+/* When the row is hovered: nudge open icon left to create gap for delete */
+.link-row-item:hover .link-open-btn {
+  transform: translateX(-4px);
+}
+
+
+/* ---------- DUPLICATE WARNING ---------- */
+.warn-banner {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #fca5a5;
+}
+html.light .warn-banner {
+  background: rgba(239,68,68,0.08);
+  color: #dc2626;
+}
+
+/* ---------- MODAL ---------- */
+.modal-glass {
+  background: var(--modal-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(168,85,247,0.1);
+}
+
+/* ---------- TIMER RING ----------
+   The SVG filter wraps around the entire SVG element causing a
+   rectangular shadow artifact. We scope the glow to the path
+   inside the SVG via a named filter, and add overflow:visible
+   so the glow isn't clipped at the viewBox edge.
+   ---------------------------------------------------------------- */
+.timer-svg {
+  overflow: visible;
+}
+
+.timer-ring-progress {
+  /* No filter here — glow is applied via the SVG <filter> element
+     defined inline in the HTML, keeping it path-scoped. */
+  transition: stroke-dashoffset 1s linear;
+}
+
+/* ---------- NOTIFICATION TOAST ---------- */
+.notif-glass {
+  background: rgba(15,12,35,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(168,85,247,0.3);
+  box-shadow: 0 0 30px rgba(168,85,247,0.2), 0 8px 32px rgba(0,0,0,0.5);
+}
+html.light .notif-glass {
+  background: rgba(245,240,255,0.97);
+  border-color: rgba(124,58,237,0.3);
+  color: #1e0a40;
+  box-shadow: 0 8px 32px rgba(100,60,200,0.2);
+}
+html.light .notif-glass p,
+html.light .notif-glass span {
+  color: #1e0a40;
+}
+html.light #closeNotification {
+  color: #7c3aed;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#timerNotification:not(.hidden) {
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+/* ---------- SCROLLBAR ---------- */
+.custom-scroll::-webkit-scrollbar { width: 4px; }
+.custom-scroll::-webkit-scrollbar-track { background: transparent; }
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(168,85,247,0.4), rgba(59,130,246,0.4));
+  border-radius: 999px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(168,85,247,0.7), rgba(59,130,246,0.7));
+}
